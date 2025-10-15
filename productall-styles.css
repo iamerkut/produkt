@@ -85,7 +85,7 @@
 .productall-container .productall-category-header {
   margin-bottom: 25px;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible; /* Dropdown menüsü grid'in üstünde kalsın */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   position: relative;
   display: flex;
@@ -116,6 +116,7 @@
   min-height: 48px;
   position: relative;
   z-index: 1;
+  border-radius: inherit; /* Header radius'ını koru */
 }
 
 .productall-container .productall-banner-title {

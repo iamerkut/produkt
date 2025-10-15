@@ -59,7 +59,12 @@ var productallData = window.productallData || (window.productallData = { /* —�
 // -----------------------------
 // Yardımcı şablonlar
 // -----------------------------
-const IMG_FALLBACK = "https://via.placeholder.com/300x200/f8f9fa/6c757d?text=Produktbild";
+const IMG_FALLBACK = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">\n' +
+    '<rect width="300" height="200" fill="#f8f9fa"/>\n' +
+    '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6c757d" font-family="Arial, sans-serif" font-size="18">Bild fehlt</text>\n' +
+  '</svg>'
+);
 
 const buildCardHTML = (product) => {
   const dots = product.images.map((_, i) => (
@@ -513,11 +518,18 @@ var BremerProductAllInit = function() {
 };
 
 // JTL Shop uyumlu başlatma
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
+let bremerProductAllAutoInitialized = false;
+
+const BremerProductAllAutoInit = () => {
+  if (bremerProductAllAutoInitialized) return;
+  bremerProductAllAutoInitialized = true;
   BremerProductAllInit();
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', BremerProductAllAutoInit, { once: true });
 } else {
-  document.addEventListener('DOMContentLoaded', BremerProductAllInit);
-  window.addEventListener('load', BremerProductAllInit);
+  BremerProductAllAutoInit();
 }
 
 // JTL Shop için global erişim

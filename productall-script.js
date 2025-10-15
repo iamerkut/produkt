@@ -513,11 +513,18 @@ var BremerProductAllInit = function() {
 };
 
 // JTL Shop uyumlu başlatma
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
+let bremerProductAllAutoInitialized = false;
+
+const BremerProductAllAutoInit = () => {
+  if (bremerProductAllAutoInitialized) return;
+  bremerProductAllAutoInitialized = true;
   BremerProductAllInit();
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', BremerProductAllAutoInit, { once: true });
 } else {
-  document.addEventListener('DOMContentLoaded', BremerProductAllInit);
-  window.addEventListener('load', BremerProductAllInit);
+  BremerProductAllAutoInit();
 }
 
 // JTL Shop için global erişim

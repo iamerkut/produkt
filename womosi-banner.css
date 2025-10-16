@@ -1,0 +1,153 @@
+/* Womosi Banner Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Artık background-image YOK; görsel <img> ile geliyor */
+.dealer-banner-hero {
+    /* background-image, background-size, background-position KALDIRILDI */
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: clip; /* eski tarayıcılar için gerekirse: overflow: hidden; */
+}
+
+/* Görselin kendisi: tam genişlik + kontrollü yükseklik, CLS yok */
+.dealer-banner-media img {
+    width: 100%;
+    height: clamp(320px, 60vh, 720px);
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    display: block;
+}
+
+/* Üstteki karartma artık görselin ÜZERİNDE kalacak */
+.dealer-banner-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* aynı degrade korundu */
+    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: 1;
+}
+
+/* İçerik overlay */
+.dealer-banner-content {
+    position: absolute;   /* içerik görselin üstünde */
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    padding: clamp(16px, 4vw, 64px);
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.dealer-banner-headline {
+    font-size: 3.1rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    line-height: 1.2;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: dealerFadeInUp 1s ease-out;
+}
+
+.dealer-banner-text {
+    max-width: 600px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    color: #f8f9fa;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    animation: dealerFadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes dealerFadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .dealer-banner-hero {
+        padding: 50px 20px;
+        min-height: 350px;
+    }
+    .dealer-banner-headline {
+        font-size: 2.8rem;
+        margin-bottom: 18px;
+    }
+    .dealer-banner-text {
+        font-size: 1.1rem;
+        max-width: 550px;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .dealer-banner-hero {
+        padding: 40px 15px;
+        min-height: 300px;
+        /* background-attachment: scroll;  <-- gereksiz oldu, kaldırılabilir */
+    }
+    .dealer-banner-headline {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    .dealer-banner-text {
+        font-size: 1.1rem;
+        max-width: 500px;
+        line-height: 1.4;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .dealer-banner-hero {
+        padding: 30px 10px;
+        min-height: 250px;
+    }
+    .dealer-banner-headline {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    .dealer-banner-text {
+        font-size: 1rem;
+        max-width: 100%;
+        line-height: 1.3;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+    .dealer-banner-hero {
+        padding: 25px 8px;
+        min-height: 220px;
+    }
+    .dealer-banner-headline {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    .dealer-banner-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* (İsteğe bağlı) hareket hassasiyeti: animasyonları kapat */
+@media (prefers-reduced-motion: reduce) {
+    .dealer-banner-headline,
+    .dealer-banner-text {
+        animation: none !important;
+    }
+}
